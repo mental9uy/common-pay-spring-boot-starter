@@ -50,12 +50,12 @@ public class CommonPayAliPayController extends BaseController {
     public String alipayNotify(HttpServletRequest request) {
         try {
             Map<String, String> params = getParams(request);
-
+            log.info("支付宝回调，params:{{}}",params);
             // 签名验证
             if (!signVerify(params)) {
+                log.error("支付宝回调签名验证失败");
                 return FAILURE_RET;
             }
-
             // 转换成支付结果对象
             PayResponse payResponse = toPayResponse(params);
 
